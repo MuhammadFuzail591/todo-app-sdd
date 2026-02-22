@@ -23,9 +23,9 @@
 
 **Purpose**: Project initialization, UV configuration, and directory structure
 
-- [ ] T001 Create pyproject.toml with project metadata (name: todo-app, requires-python >=3.13, empty dependencies, dev-dependencies: pytest>=8.0 and ruff>=0.9, script entry-point: todo-app = "todo_app.__main__:main", ruff config: line-length=88, target-version=py313) in pyproject.toml
-- [ ] T002 Create project directory structure: src/todo_app/__init__.py, src/todo_app/domain/__init__.py, src/todo_app/services/__init__.py, src/todo_app/cli/__init__.py, tests/__init__.py, tests/unit/__init__.py (all empty __init__.py files)
-- [ ] T003 Run `uv sync` to generate uv.lock and install dev dependencies
+- [x] T001 Create pyproject.toml with project metadata (name: todo-app, requires-python >=3.13, empty dependencies, dev-dependencies: pytest>=8.0 and ruff>=0.9, script entry-point: todo-app = "todo_app.__main__:main", ruff config: line-length=88, target-version=py313) in pyproject.toml
+- [x] T002 Create project directory structure: src/todo_app/__init__.py, src/todo_app/domain/__init__.py, src/todo_app/services/__init__.py, src/todo_app/cli/__init__.py, tests/__init__.py, tests/unit/__init__.py (all empty __init__.py files)
+- [x] T003 Run `uv sync` to generate uv.lock and install dev dependencies
 
 **Checkpoint**: Project skeleton ready — `uv run python -c "import todo_app"` succeeds
 
@@ -37,11 +37,11 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 [P] Implement Status enum (PENDING, COMPLETED) and Todo dataclass (id: int, title: str, status: Status defaulting to PENDING) in src/todo_app/domain/models.py
-- [ ] T005 [P] Implement TodoRepository ABC with abstract methods (add(title: str) → Todo, get(id: int) → Todo | None, get_all() → list[Todo], update(id: int, title: str) → Todo | None, delete(id: int) → bool) and InMemoryTodoRepository (dict-based storage, auto-increment counter starting at 1, deleted IDs never reused) in src/todo_app/domain/repository.py
-- [ ] T006 [P] Write unit tests for Todo dataclass creation and Status enum values in tests/unit/test_models.py
-- [ ] T007 [P] Write unit tests for InMemoryTodoRepository: add, get, get_all, update, delete, auto-increment behavior, deleted ID not reused, get returns None for missing ID, delete returns False for missing ID in tests/unit/test_repository.py
-- [ ] T008 Run `uv run pytest tests/unit/test_models.py tests/unit/test_repository.py` — all tests must pass
+- [x] T004 [P] Implement Status enum (PENDING, COMPLETED) and Todo dataclass (id: int, title: str, status: Status defaulting to PENDING) in src/todo_app/domain/models.py
+- [x] T005 [P] Implement TodoRepository ABC with abstract methods (add(title: str) → Todo, get(id: int) → Todo | None, get_all() → list[Todo], update(id: int, title: str) → Todo | None, delete(id: int) → bool) and InMemoryTodoRepository (dict-based storage, auto-increment counter starting at 1, deleted IDs never reused) in src/todo_app/domain/repository.py
+- [x] T006 [P] Write unit tests for Todo dataclass creation and Status enum values in tests/unit/test_models.py
+- [x] T007 [P] Write unit tests for InMemoryTodoRepository: add, get, get_all, update, delete, auto-increment behavior, deleted ID not reused, get returns None for missing ID, delete returns False for missing ID in tests/unit/test_repository.py
+- [x] T008 Run `uv run pytest tests/unit/test_models.py tests/unit/test_repository.py` — all tests must pass
 
 **Checkpoint**: Foundation ready — domain models and repository are tested and working
 
@@ -57,12 +57,12 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T009 [P] [US1] Write unit tests for TodoService.add_todo(): valid title returns Todo with auto-ID and PENDING status, empty title raises ValueError, whitespace-only title raises ValueError in tests/unit/test_service.py
+- [x] T009 [P] [US1] Write unit tests for TodoService.add_todo(): valid title returns Todo with auto-ID and PENDING status, empty title raises ValueError, whitespace-only title raises ValueError in tests/unit/test_service.py
 
 ### Implementation for User Story 1
 
-- [ ] T010 [US1] Implement TodoService class with constructor accepting TodoRepository (dependency injection) and add_todo(title: str) → Todo method (strip + validate title, delegate to repository) in src/todo_app/services/todo_service.py
-- [ ] T011 [US1] Run `uv run pytest tests/unit/test_service.py -k "add"` — add_todo tests must pass
+- [x] T010 [US1] Implement TodoService class with constructor accepting TodoRepository (dependency injection) and add_todo(title: str) → Todo method (strip + validate title, delegate to repository) in src/todo_app/services/todo_service.py
+- [x] T011 [US1] Run `uv run pytest tests/unit/test_service.py -k "add"` — add_todo tests must pass
 
 **Checkpoint**: User Story 1 service logic is tested — add_todo works with validation
 
@@ -78,12 +78,12 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T012 [P] [US2] Write unit tests for TodoService.get_all_todos(): returns empty list when no todos, returns all todos ordered by ID after adding multiple in tests/unit/test_service.py
+- [x] T012 [P] [US2] Write unit tests for TodoService.get_all_todos(): returns empty list when no todos, returns all todos ordered by ID after adding multiple in tests/unit/test_service.py
 
 ### Implementation for User Story 2
 
-- [ ] T013 [US2] Add get_all_todos() → list[Todo] method to TodoService (delegates to repository.get_all()) in src/todo_app/services/todo_service.py
-- [ ] T014 [US2] Run `uv run pytest tests/unit/test_service.py -k "get_all"` — get_all_todos tests must pass
+- [x] T013 [US2] Add get_all_todos() → list[Todo] method to TodoService (delegates to repository.get_all()) in src/todo_app/services/todo_service.py
+- [x] T014 [US2] Run `uv run pytest tests/unit/test_service.py -k "get_all"` — get_all_todos tests must pass
 
 **Checkpoint**: User Story 2 service logic is tested — get_all_todos works
 
@@ -99,12 +99,12 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T015 [P] [US3] Write unit tests for TodoService.mark_complete(): pending todo transitions to COMPLETED, already-completed raises ValueError("Todo is already completed."), missing ID raises KeyError in tests/unit/test_service.py
+- [x] T015 [P] [US3] Write unit tests for TodoService.mark_complete(): pending todo transitions to COMPLETED, already-completed raises ValueError("Todo is already completed."), missing ID raises KeyError in tests/unit/test_service.py
 
 ### Implementation for User Story 3
 
-- [ ] T016 [US3] Add mark_complete(todo_id: int) → Todo method to TodoService (get from repo, check status, update status, return) in src/todo_app/services/todo_service.py
-- [ ] T017 [US3] Run `uv run pytest tests/unit/test_service.py -k "mark_complete"` — mark_complete tests must pass
+- [x] T016 [US3] Add mark_complete(todo_id: int) → Todo method to TodoService (get from repo, check status, update status, return) in src/todo_app/services/todo_service.py
+- [x] T017 [US3] Run `uv run pytest tests/unit/test_service.py -k "mark_complete"` — mark_complete tests must pass
 
 **Checkpoint**: User Story 3 service logic is tested — mark_complete works with all edge cases
 
@@ -120,12 +120,12 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T018 [P] [US4] Write unit tests for TodoService.update_todo(): valid update returns updated Todo, empty title raises ValueError, missing ID raises KeyError in tests/unit/test_service.py
+- [x] T018 [P] [US4] Write unit tests for TodoService.update_todo(): valid update returns updated Todo, empty title raises ValueError, missing ID raises KeyError in tests/unit/test_service.py
 
 ### Implementation for User Story 4
 
-- [ ] T019 [US4] Add update_todo(todo_id: int, title: str) → Todo method to TodoService (validate title, delegate to repository, raise KeyError if None returned) in src/todo_app/services/todo_service.py
-- [ ] T020 [US4] Run `uv run pytest tests/unit/test_service.py -k "update"` — update_todo tests must pass
+- [x] T019 [US4] Add update_todo(todo_id: int, title: str) → Todo method to TodoService (validate title, delegate to repository, raise KeyError if None returned) in src/todo_app/services/todo_service.py
+- [x] T020 [US4] Run `uv run pytest tests/unit/test_service.py -k "update"` — update_todo tests must pass
 
 **Checkpoint**: User Story 4 service logic is tested — update_todo works with validation
 
@@ -141,12 +141,12 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T021 [P] [US5] Write unit tests for TodoService.delete_todo(): existing todo returns True and is removed, missing ID raises KeyError in tests/unit/test_service.py
+- [x] T021 [P] [US5] Write unit tests for TodoService.delete_todo(): existing todo returns True and is removed, missing ID raises KeyError in tests/unit/test_service.py
 
 ### Implementation for User Story 5
 
-- [ ] T022 [US5] Add delete_todo(todo_id: int) → bool method to TodoService (delegate to repository, raise KeyError if False returned) in src/todo_app/services/todo_service.py
-- [ ] T023 [US5] Run `uv run pytest tests/unit/test_service.py -k "delete"` — delete_todo tests must pass
+- [x] T022 [US5] Add delete_todo(todo_id: int) → bool method to TodoService (delegate to repository, raise KeyError if False returned) in src/todo_app/services/todo_service.py
+- [x] T023 [US5] Run `uv run pytest tests/unit/test_service.py -k "delete"` — delete_todo tests must pass
 
 **Checkpoint**: User Story 5 service logic is tested — delete_todo works
 
@@ -160,7 +160,7 @@
 
 ### Implementation for User Story 6
 
-- [ ] T024 [US6] Implement TodoApp class in src/todo_app/cli/app.py with:
+- [x] T024 [US6] Implement TodoApp class in src/todo_app/cli/app.py with:
   - Constructor accepting TodoService
   - run() method with menu loop displaying options (1-6)
   - Handler methods for each operation: _add_todo(), _view_todos(), _mark_complete(), _update_todo(), _delete_todo()
@@ -169,8 +169,8 @@
   - Error handling: catch ValueError/KeyError from service, display user-friendly messages
   - Output formatting: "[ID] title (status)" for confirmations, "- " prefix for list items
   - Exit: display "Goodbye!" and terminate loop
-- [ ] T025 [US6] Implement main() function in src/todo_app/__main__.py that wires InMemoryTodoRepository → TodoService → TodoApp and calls run()
-- [ ] T026 [US6] Run full integration test manually: `uv run todo-app` and execute the example session from quickstart.md (add 2 todos, view, complete, update, delete, exit)
+- [x] T025 [US6] Implement main() function in src/todo_app/__main__.py that wires InMemoryTodoRepository → TodoService → TodoApp and calls run()
+- [x] T026 [US6] Run full integration test manually: `uv run todo-app` and execute the example session from quickstart.md (add 2 todos, view, complete, update, delete, exit)
 
 **Checkpoint**: Application is fully functional end-to-end — all 6 user stories work through the CLI
 
@@ -180,11 +180,11 @@
 
 **Purpose**: Final validation, linting, and test suite completion
 
-- [ ] T027 [P] Run `uv run ruff check src/ tests/` and fix any linting issues
-- [ ] T028 [P] Run `uv run ruff format src/ tests/` to ensure consistent formatting
-- [ ] T029 Run full test suite: `uv run pytest tests/ -v` — all tests must pass
-- [ ] T030 Run quickstart.md validation: execute the full example session from specs/001-todo-console-app/quickstart.md and verify output matches expected behavior
-- [ ] T031 Verify type hints on all public functions and parameters across src/todo_app/
+- [x] T027 [P] Run `uv run ruff check src/ tests/` and fix any linting issues
+- [x] T028 [P] Run `uv run ruff format src/ tests/` to ensure consistent formatting
+- [x] T029 Run full test suite: `uv run pytest tests/ -v` — all tests must pass
+- [x] T030 Run quickstart.md validation: execute the full example session from specs/001-todo-console-app/quickstart.md and verify output matches expected behavior
+- [x] T031 Verify type hints on all public functions and parameters across src/todo_app/
 
 ---
 

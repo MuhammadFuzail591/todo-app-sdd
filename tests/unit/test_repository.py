@@ -62,6 +62,19 @@ class TestUpdate:
         assert repo.update(999, "Nothing") is None
 
 
+class TestSetStatus:
+    def test_set_status_existing(self, repo: InMemoryTodoRepository) -> None:
+        todo = repo.add("Test")
+        updated = repo.set_status(todo.id, Status.COMPLETED)
+        assert updated is not None
+        assert updated.status == Status.COMPLETED
+
+    def test_set_status_missing_returns_none(
+        self, repo: InMemoryTodoRepository
+    ) -> None:
+        assert repo.set_status(999, Status.COMPLETED) is None
+
+
 class TestDelete:
     def test_delete_existing(self, repo: InMemoryTodoRepository) -> None:
         todo = repo.add("To delete")

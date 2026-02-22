@@ -18,6 +18,12 @@ class TodoApp:
         self._service = service
 
     def run(self) -> None:
+        try:
+            self._menu_loop()
+        except (KeyboardInterrupt, EOFError):
+            print("\nGoodbye!")
+
+    def _menu_loop(self) -> None:
         while True:
             print(MENU)
             choice = input("Choose an option: ").strip()

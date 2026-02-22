@@ -23,6 +23,10 @@ class TodoRepository(ABC):
         """Update a todo's title. Returns None if not found."""
 
     @abstractmethod
+    def set_status(self, todo_id: int, status: Status) -> Todo | None:
+        """Update a todo's status. Returns None if not found."""
+
+    @abstractmethod
     def delete(self, todo_id: int) -> bool:
         """Delete a todo by ID. Returns True if deleted."""
 
@@ -51,6 +55,13 @@ class InMemoryTodoRepository(TodoRepository):
         if todo is None:
             return None
         todo.title = title
+        return todo
+
+    def set_status(self, todo_id: int, status: Status) -> Todo | None:
+        todo = self._todos.get(todo_id)
+        if todo is None:
+            return None
+        todo.status = status
         return todo
 
     def delete(self, todo_id: int) -> bool:

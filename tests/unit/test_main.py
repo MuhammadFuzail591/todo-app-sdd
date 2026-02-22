@@ -86,3 +86,67 @@ class TestMain:
             main()
         out = capsys.readouterr().out
         assert "No todos found." in out
+
+    def test_main_already_completed(self, capsys: pytest.CaptureFixture[str]) -> None:
+        """Test marking an already-completed todo through CLI."""
+        inputs = iter(["1", "Test", "3", "1", "3", "1", "6"])
+        with patch("builtins.input", side_effect=inputs):
+            main()
+        out = capsys.readouterr().out
+        assert "Todo is already completed." in out
+
+    def test_main_update_empty_title(self, capsys: pytest.CaptureFixture[str]) -> None:
+        """Test updating with empty title through CLI."""
+        inputs = iter(["1", "Test", "4", "1", "", "6"])
+        with patch("builtins.input", side_effect=inputs):
+            main()
+        out = capsys.readouterr().out
+        assert "Title cannot be empty" in out
+
+    def test_main_delete_not_found(self, capsys: pytest.CaptureFixture[str]) -> None:
+        """Test deleting a non-existent todo through CLI."""
+        inputs = iter(["5", "99", "6"])
+        with patch("builtins.input", side_effect=inputs):
+            main()
+        out = capsys.readouterr().out
+        assert "Todo not found." in out
+
+    def test_main_negative_id(self, capsys: pytest.CaptureFixture[str]) -> None:
+        """Test negative ID returns not found."""
+        inputs = iter(["3", "-1", "6"])
+        with patch("builtins.input", side_effect=inputs):
+            main()
+        out = capsys.readouterr().out
+        assert "Todo not found." in out
+
+    def test_main_zero_id(self, capsys: pytest.CaptureFixture[str]) -> None:
+        """Test zero ID returns not found."""
+        inputs = iter(["3", "0", "6"])
+        with patch("builtins.input", side_effect=inputs):
+            main()
+        out = capsys.readouterr().out
+        assert "Todo not found." in out
+
+    def test_main_whitespace_menu_input(
+        self, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        """Test whitespace-only menu input shows invalid option."""
+        inputs = iter(["  ", "6"])
+        with patch("builtins.input", side_effect=inputs):
+            main()
+        out = capsys.readouterr().out
+        assert "Invalid option. Please try again." in out
+
+    def test_main_keyboard_interrupt(self, capsys: pytest.CaptureFixture[str]) -> None:
+        """Test Ctrl+C exits gracefully."""
+        with patch("builtins.input", side_effect=KeyboardInterrupt):
+            main()
+        out = capsys.readouterr().out
+        assert "Goodbye!" in out
+
+    def test_main_eof_error(self, capsys: pytest.CaptureFixture[str]) -> None:
+        """Test Ctrl+D (EOF) exits gracefully."""
+        with patch("builtins.input", side_effect=EOFError):
+            main()
+        out = capsys.readouterr().out
+        assert "Goodbye!" in out
